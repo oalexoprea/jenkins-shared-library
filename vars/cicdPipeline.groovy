@@ -9,8 +9,9 @@ def cicdPipeline() {
             }
             stage('Build') {
                 steps {
-                    echo 'Building the application...'
-                    // Add build steps here
+                    script {
+                        buildApp.build()
+                    }
                 }
             }
             stage('Test') {
