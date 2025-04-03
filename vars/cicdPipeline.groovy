@@ -1,4 +1,5 @@
-def cicdPipeline() {
+def cicdPipeline(List environments) {
+
     pipeline {
         agent any
         stages {
@@ -32,24 +33,12 @@ def cicdPipeline() {
             }
             stage('Deploy') {
                 stages {
-                    stage('Dev') {
-                        steps {
-                            script {
-                                buildApp.deployDev()
-                            }
-                        }
-                    }
-                    stage('Staging') {
-                        steps {
-                            script {
-                                buildApp.deployStaging()
-                            }
-                        }
-                    }
-                    stage('Production') {
-                        steps {
-                            script {
-                                buildApp.deployProd()
+                    for (String env : environments) {
+                        stage(env) {
+                            steps {
+                                script {
+                                    buildApp.deployToEnvironment(env)
+                                }
                             }
                         }
                     }

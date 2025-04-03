@@ -17,17 +17,18 @@ def packageApp() {
     // Add actual package steps here, e.g., docker build, jar, zip, etc.
 }
 
-def deployDev() {
-    echo "Deploying to Dev environment..."
-    // Add actual deploy to dev steps here
-}
-
-def deployStaging() {
-    echo "Deploying to Staging environment..."
-    // Add actual deploy to staging steps here
-}
-
-def deployProd() {
-    echo "Deploying to Production environment..."
-    // Add actual deploy to production steps here
+def deployToEnvironment(String environment, Map deploymentConfig) {
+    echo "Deploying to ${environment} environment..."
+    if (environment == 'Dev') {
+        echo "Deploying to Dev server: ${deploymentConfig.devServer}"
+        // Dev deployment steps using deploymentConfig.devServer
+    } else if (environment == 'Staging') {
+        echo "Deploying to Staging server: ${deploymentConfig.stagingServer}"
+        // Staging deployment steps using deploymentConfig.stagingServer
+    } else if (environment == 'Production') {
+        echo "Deploying to Production server: ${deploymentConfig.prodServer}"
+        // Production deployment steps using deploymentConfig.prodServer
+    } else {
+        echo "Unknown environment: ${environment}"
+    }
 }
