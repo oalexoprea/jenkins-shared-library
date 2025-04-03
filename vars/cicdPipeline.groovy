@@ -4,7 +4,9 @@ def cicdPipeline() {
         stages {
             stage('Checkout') {
                 steps {
-                    checkout scm
+                    script {
+                        buildApp.checkoutCode()
+                    }
                 }
             }
             stage('Build') {
