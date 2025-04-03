@@ -16,34 +16,39 @@ def cicdPipeline() {
             }
             stage('Test') {
                 steps {
-                    echo 'Running tests...'
-                    // Add test steps here
+                    script {
+                        buildApp.test()
+                    }
                 }
             }
             stage('Package') {
                 steps {
-                    echo 'Packaging the application...'
-                    // Add package steps here
+                    script {
+                        buildApp.packageApp()
+                    }
                 }
             }
             stage('Deploy') {
                 stages {
                     stage('Dev') {
                         steps {
-                            echo 'Deploying to Dev environment...'
-                            // Add deploy to dev steps here
+                            script {
+                                buildApp.deployDev()
+                            }
                         }
                     }
                     stage('Staging') {
                         steps {
-                            echo 'Deploying to Staging environment...'
-                            // Add deploy to staging steps here
+                            script {
+                                buildApp.deployStaging()
+                            }
                         }
                     }
                     stage('Production') {
                         steps {
-                            echo 'Deploying to Production environment...'
-                            // Add deploy to production steps here
+                            script {
+                                buildApp.deployProd()
+                            }
                         }
                     }
                 }
